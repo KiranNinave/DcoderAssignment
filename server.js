@@ -32,7 +32,8 @@ app.use("/", routes);
 mongoose
   .connect(MONGODB_CONNECTION_STRING, {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useFindAndModify: false
   })
   .then(() => app.listen(PORT, () => console.log("server started on ", PORT)))
   .catch(err => console.log(err));
