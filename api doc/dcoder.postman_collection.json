@@ -1,99 +1,117 @@
 {
-  "variables": [],
-  "info": {
-    "name": "dcoder",
-    "_postman_id": "9365b61b-0963-4572-e4c0-4dfe09b366b1",
-    "description": "",
-    "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
-  },
-  "item": [
-    {
-      "name": "get all files",
-      "request": {
-        "url": "localhost:4000/file",
-        "method": "GET",
-        "header": [],
-        "body": {},
-        "description": ""
-      },
-      "response": []
-    },
-    {
-      "name": "get file by id",
-      "request": {
-        "url": "localhost:4000/file/5dd91dde6e04b801385a440a",
-        "method": "GET",
-        "header": [],
-        "body": {},
-        "description": ""
-      },
-      "response": []
-    },
-    {
-      "name": "update file by id",
-      "request": {
-        "url": "localhost:4000/file/5dd91dde6e04b801385a440a",
-        "method": "PUT",
-        "header": [
-          {
-            "key": "Content-Type",
-            "value": "application/x-www-form-urlencoded",
-            "description": ""
-          }
-        ],
-        "body": {
-          "mode": "urlencoded",
-          "urlencoded": [
-            {
-              "key": "name",
-              "value": "abcf",
-              "description": "",
-              "type": "text"
-            },
-            {
-              "key": "content",
-              "value": "hello worldddssssssssssss",
-              "description": "",
-              "type": "text"
-            }
-          ]
-        },
-        "description": ""
-      },
-      "response": []
-    },
-    {
-      "name": "add file",
-      "request": {
-        "url": "localhost:4000/file",
-        "method": "POST",
-        "header": [
-          {
-            "key": "Content-Type",
-            "value": "application/x-www-form-urlencoded",
-            "description": ""
-          }
-        ],
-        "body": {
-          "mode": "urlencoded",
-          "urlencoded": [
-            {
-              "key": "name",
-              "value": "pqrs",
-              "description": "",
-              "type": "text"
-            },
-            {
-              "key": "content",
-              "value": "hello",
-              "description": "",
-              "type": "text"
-            }
-          ]
-        },
-        "description": ""
-      },
-      "response": []
-    }
-  ]
+	"variables": [],
+	"info": {
+		"name": "dcoder",
+		"_postman_id": "9365b61b-0963-4572-e4c0-4dfe09b366b1",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "get all files",
+			"request": {
+				"url": {
+					"raw": "localhost:4000/file?page=1",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"file"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "get file by id",
+			"request": {
+				"url": "localhost:4000/file/5dd91dde6e04b801385a440a",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "update file by id",
+			"request": {
+				"url": "localhost:4000/file/5dd91dde6e04b801385a440a",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "abcfggh",
+							"description": "name required",
+							"type": "text"
+						},
+						{
+							"key": "content",
+							"value": "cool content",
+							"description": "optional content",
+							"type": "text"
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "add file",
+			"request": {
+				"url": "localhost:4000/file",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "p",
+							"description": "file name required",
+							"type": "text"
+						},
+						{
+							"key": "content",
+							"value": "did i saved",
+							"description": "optional file content",
+							"type": "text"
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
 }

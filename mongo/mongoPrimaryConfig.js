@@ -15,6 +15,3 @@ config = {
 // on primary
 rs.initiate(config);
 rs.status();
-
-// on secondary
-rs.slaveOk();

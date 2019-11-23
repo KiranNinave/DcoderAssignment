@@ -4,7 +4,14 @@ const content = require("../models/content");
 
 exports.getFiles = async (req, res) => {
   try {
-    const files = await file.find({}).populate("content");
+    const page = req.query.page || 1; // page
+    const resPerPage = 20; // results per page
+
+    const files = await file
+      .find({})
+      .populate("content")
+      .skip(resPerPage * page - resPerPage)
+      .limit(resPerPage);
     res.json(files);
   } catch (err) {
     console.log(err);
@@ -31,26 +38,31 @@ exports.getFileById = async (req, res) => {
 
 exports.addFile = async (req, res) => {
   // starting mongoose session
-  const session = await mongoose.startSession();
-  session.startTransaction();
+  let session = null;
   try {
+    // session
+    session = await mongoose.startSession();
+    session.startTransaction();
+
     // req data
     const fileName = req.body.name;
     const fileContent = req.body.content || "";
 
     // check if file exists
-    const isFileExists = await file.findOne({ name: fileName });
+    const isFileExists = await file
+      .findOne({ name: fileName })
+      .session(session);
     if (isFileExists) {
       return res.sendAlreadyExists({ message: "file already exists" });
     }
 
     // creating file content
     const newContent = new content({ content: fileContent });
-    const savedContent = await newContent.save();
+    const savedContent = await newContent.save({ session });
 
     // creating file metadata
     const newFile = new file({ name: fileName, content: savedContent._id });
-    const savedFile = await newFile.save();
+    const savedFile = await newFile.save({ session });
 
     // transaction successfull so commit changes
     await session.commitTransaction();
@@ -60,22 +72,28 @@ exports.addFile = async (req, res) => {
     console.log(err);
 
     // transaction failed so revert changes
-    await session.abortTransaction();
+    if (session) await session.abortTransaction();
+
     res.sendServerError();
+  } finally {
+    session.endSession();
   }
 };
 
 exports.updateFileById = async (req, res) => {
   // starting mongoose session
-  const session = await mongoose.startSession();
-  session.startTransaction();
+  let session = null;
   try {
     const fileId = req.params.id;
     const fileName = req.body.name;
     const fileContent = req.body.content || "";
 
+    // session
+    session = await mongoose.startSession();
+    session.startTransaction();
+
     // finding file and content
-    const isFile = await file.findOne({ _id: fileId });
+    const isFile = await file.findOne({ _id: fileId }).session(session);
     if (!isFile) return res.sendNotFound();
     const contentId = isFile.content;
 
@@ -106,7 +124,10 @@ exports.updateFileById = async (req, res) => {
   } catch (err) {
     console.log(err);
     // transaction failed so revert changes
-    await session.abortTransaction();
+    if (session) await session.abortTransaction();
+
     res.sendServerError();
+  } finally {
+    session.endSession();
   }
 };

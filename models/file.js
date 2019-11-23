@@ -4,7 +4,8 @@ const fileShema = new mongoose.Schema(
   {
     name: {
       type: String,
-      required: true
+      required: true,
+      unique: true
     },
     content: {
       type: mongoose.Schema.Types.ObjectId,
