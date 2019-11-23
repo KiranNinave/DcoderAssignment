@@ -8,7 +8,7 @@
 ## how to install
 
 1. clone the repo
-2. then do docker compose up
+2. then do docker-compose up
 3. for first time we need to configure replica sets, by following steps
    a. connect both mongo server running on port 27017 and 27018 using your local system
    b. on your system terminal type following commands $ mongo localhost:27017 and $ mongo localhost:27018
