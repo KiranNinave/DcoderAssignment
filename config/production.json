@@ -1,5 +1,5 @@
 {
   "db": {
-    "connection-string": "mongodb://localhost:27017/dcoder"
+    "connection-string": "mongodb://mongo:27017,mongo_repl:27017/dcoder?replicaSet=dcoder"
   }
 }

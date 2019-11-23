@@ -1,0 +1,29 @@
+version: "3"
+services:
+  mongo:
+    container_name: mongo
+    image: mongo
+    command: mongod --bind_ip_all --replSet dcoder
+    ports:
+      - "27017:27017"
+  mongo_repl:
+    container_name: mongo_repl
+    image: mongo
+    command: mongod --bind_ip_all --replSet dcoder
+    ports:
+      - "27018:27017"
+
+  api:
+    restart: always
+    build:
+      context: ./
+      dockerfile: Dockerfile.dev
+    ports:
+      - "4000:4000"
+      - "9229:9229"
+    volumes:
+      - /app/node_modules
+      - ./:/app
+    environment:
+      - NODE_ENV=development
+      - PORT=4000
